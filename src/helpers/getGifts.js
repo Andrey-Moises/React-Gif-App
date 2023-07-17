@@ -11,6 +11,6 @@ export const getGifts = async( category ) => {
 
     }))
 
-    console.log(gifts);
+    return gifts;
 
 }

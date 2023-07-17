@@ -13,7 +13,7 @@ export const GiftApp = () => {
         }
 
         console.log(newCategory);
-        setCategories( [...categories, newCategory] )
+        setCategories( [ newCategory, ...categories] )
     }
 
  
