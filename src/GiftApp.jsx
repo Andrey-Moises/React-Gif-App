@@ -1,36 +1,27 @@
-import { useState } from "react";
-import { AddCategory } from "./components/AddCategory";
-import { GifGrid } from "./components/GifGrid";
+import { useState, useCallback } from 'react';
+import { AddCategory, GifGrid  } from './components';
 
-export const GiftApp = () => {
+export default function GiftApp() {
 
-    const [ categories, setCategories ] = useState( ['Metroid'] );
+    const [categories, setCategories] = useState(['Sailor Moon', 'Java', 'Python', 'Neko Arc']);
 
-    const onAddCategory = (newCategory) => {
-
-        if (categories.includes(newCategory)) {
-            return;
+    const handleAdd = useCallback((newCategorie) => {
+        if (newCategorie.trim() !== '' && !categories.includes(newCategorie)) {
+            setCategories(prevCategories => [newCategorie, ...prevCategories]);
         }
-
-        console.log(newCategory);
-        setCategories( [ newCategory, ...categories] )
-    }
-
- 
+    }, []);
     return (
         <>
-            <h1>GIftApp</h1>
-
-            <AddCategory 
-                onNewCategory = { (value) => onAddCategory(value) }
-            />
-   
+            <h1>GiftApp</h1>
+            <AddCategory onAddCategory={handleAdd} />
             {
-                categories.map( category => (
-                    <GifGrid key={ category } category = { category } />
+                categories.map(category => (
+                    <GifGrid 
+                        key={category} 
+                        category={category}
+                    />
                 ))
             }
-
         </>
-    )
+    );
 }
